@@ -1,27 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div>
+    <component v-bind:is="currentPage.component"></component>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './views/components/HelloWorld.vue'
+  // -- Packages
+  import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-})
+  // -- Modules
+  import ConvertionStarter from './views/pages/ConvertionStarter.vue'
+  import ConvertionTable from './views/pages/ConvertionTable.vue'
+
+  const pages = [
+    { component: ConvertionStarter },
+    { component: ConvertionTable }
+  ]
+
+  export default defineComponent({
+    name: 'App',
+    data: () => ({
+      currentPage: pages[0]
+    }),
+    components: {
+      ConvertionStarter,
+      ConvertionTable
+    }
+  })
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #app {
+    overflow: hidden;
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+  }
 </style>
