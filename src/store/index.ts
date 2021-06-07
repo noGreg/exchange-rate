@@ -1,10 +1,10 @@
 // -- Packages
-import { createStore } from 'vuex'
+import { InjectionKey } from 'vue'
+import { Store, createStore } from 'vuex'
 
 // -- MOdules
 import countries from './countries'
-
-console.log({ countries })
+import rates from './rates'
 
 export interface Country {
   countryCode: string,
@@ -16,17 +16,35 @@ export interface Country {
 }
 
 export interface State {
-  countries: Array<Country>
+  countries: Array<Country>,
+  currencyFrom: Country | undefined,
+  currencyTo: Country | undefined  
 }
 
-// IS REALLY NEEDED AN INJECTION KEY ???
+export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
   state() {
     return {
-      countries,
-      currencyFrom: countries[0],
-      currencyTo: countries[1]
+      countries,      
+      currencyFrom: countries[232],
+      currencyTo: countries[56],
+      DOPRates: rates
+    }
+  },
+  mutations: {
+    newCurrencyFrom(state, currencyCode) {
+      state.currencyFrom = state.countries.find((c : any) => c.currencyCode === currencyCode)
+    },
+    newCurrencyTo(state, currencyCode) {
+      state.currencyTo = state.countries.find((c : any) => c.currencyCode === currencyCode)
+    },
+    invertExchange(state) {
+      let to = JSON.parse(JSON.stringify(state.currencyTo))
+      let from  = JSON.parse(JSON.stringify(state.currencyFrom))
+
+      state.currencyFrom = to
+      state.currencyTo = from
     }
   }
 })

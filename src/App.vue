@@ -10,11 +10,11 @@
 
   // -- Modules
   import ConvertionStarter from './views/pages/ConvertionStarter.vue'
-  import ConvertionTable from './views/pages/ConvertionTable.vue'
+  // import ConvertionTable from './views/pages/QuickTable.vue'
 
   const pages = [
     { component: ConvertionStarter },
-    { component: ConvertionTable }
+    // { component: ConvertionTable }
   ]
 
   export default defineComponent({
@@ -24,7 +24,7 @@
     }),
     components: {
       ConvertionStarter,
-      ConvertionTable
+      // ConvertionTable
     }
   })
 </script>
