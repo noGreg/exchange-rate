@@ -74,8 +74,9 @@
             <h4>Quick guide tables</h4>
             <div class="tables-container d-flex">
               <div class="quick-table d-flex flex-column flex-grow-1">
-                <header>
-                  {{ currencyFrom.currencyCode }} / {{ currencyTo.currencyCode }}
+                <header class="d-flex justify-content-between">
+                  <strong>{{ currencyFrom.currencyCode }} / {{ currencyTo.currencyCode }}</strong>
+                  <span>Rate date: {{ new Date().toLocaleDateString() }}</span>
                 </header>
                 <quicktable 
                   :currencyFrom="currencyFrom.currencyCode" 
@@ -83,8 +84,9 @@
                 />
               </div>
               <div class="quick-table d-flex flex-column flex-grow-1 ms-3">
-                <header>
-                  {{ currencyTo.currencyCode }} / {{ currencyFrom.currencyCode }}
+                <header class="d-flex justify-content-between">
+                  <strong>{{ currencyTo.currencyCode }} / {{ currencyFrom.currencyCode }}</strong>
+                  <span>Rate date: {{ new Date().toLocaleDateString() }}</span>
                 </header>
                 <quicktable 
                   :currencyFrom="currencyTo.currencyCode" 
