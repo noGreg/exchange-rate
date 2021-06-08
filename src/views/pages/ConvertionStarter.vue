@@ -20,9 +20,19 @@
                   <span class="flag-icon" :class="`flag-icon-${flagCode(currencyFrom)}`"></span>
                 </div>
                 <div class="currency-selector ms-2 mr-2">
-                  <select name="currencyFrom" class="border-0" @change="fromChange">
-                    <option :value="currencyFrom.currencyCode">{{ currencyFrom.currencyCode }}</option>
-                    <option v-for="(country, index) in countries" :value="country.currencyCode" :key="index">{{ country.currencyCode }}</option>
+                  <select 
+                    name="currencyFrom" 
+                    class="border-0" 
+                    :value="`${currencyFrom.currencyCode}_${currencyFrom.countryName.replace(' ', '_')}`" 
+                    @change="fromChange"
+                  >
+                    <option 
+                      v-for="(country, index) in countries" 
+                      :value="`${country.currencyCode}_${country.countryName.replace(' ', '_')}`" 
+                      :key="index"
+                    >
+                      {{ country.currencyCode }}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -43,9 +53,19 @@
                   <span class="flag-icon" :class="`flag-icon-${flagCode(currencyTo)}`"></span>
                 </div>
                 <div class="currency-selector ms-2 mr-2">
-                  <select name="currencyTo" class="border-0" @change="toChange">
-                    <option :value="currencyTo.currencyCode">{{ currencyTo.currencyCode }}</option>
-                    <option v-for="(country, index) in countries" :value="country.currencyCode" :key="index">{{ country.currencyCode }}</option>
+                  <select 
+                    name="currencyTo" 
+                    class="border-0" 
+                    :value="`${currencyTo.currencyCode}_${currencyTo.countryName.replace(' ', '_')}`" 
+                    @change="toChange"
+                  >
+                    <option 
+                      v-for="(country, index) in countries" 
+                      :value="`${country.currencyCode}_${country.countryName.replace(' ', '_')}`" 
+                      :key="index"
+                    >
+                      {{ country.currencyCode }}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -124,10 +144,12 @@
         ) * state.DOPRates[state.currencyTo.currencyCode]).toFixed(4)
       }
     }),
-    data: () => ({
-      currencyFromQuantity: 1,
-      showDetails: false
-    }),
+    data: function () {
+      return {
+        currencyFromQuantity: 1,
+        showDetails: false
+      }
+    },
     methods: {
       flagCode: function (countryObject : any) {
         return countryObject.continentName === "Europe" ? 'eu' : countryObject.countryCode.toLowerCase()
@@ -135,8 +157,8 @@
       revealDetails: function () {
         this.showDetails = true
       },
-      fromChange: (ev : any) => store.commit("newCurrencyFrom", ev.target.value),
-      toChange: (ev : any) => store.commit("newCurrencyTo", ev.target.value),
+      fromChange: (ev : any) => store.commit("newCurrencyFrom", ev.target.value.split("_")[0]),
+      toChange: (ev : any) => store.commit("newCurrencyTo", ev.target.value.split("_")[0]),
       invertExchange: () => store.commit("invertExchange")
     },
     components: {
