@@ -22,7 +22,8 @@
                 <div class="currency-selector ms-2 mr-2">
                   <select 
                     name="currencyFrom" 
-                    class="border-0" 
+                    class="border-0"
+                    style="max-width: 65px;"
                     :value="`${currencyFrom.currencyCode}_${currencyFrom.countryName.replace(' ', '_')}`" 
                     @change="fromChange"
                   >
@@ -31,7 +32,7 @@
                       :value="`${country.currencyCode}_${country.countryName.replace(' ', '_')}`" 
                       :key="index"
                     >
-                      {{ country.currencyCode }}
+                      {{ country.currencyCode }} - {{ country.countryName }}
                     </option>
                   </select>
                 </div>
@@ -55,7 +56,8 @@
                 <div class="currency-selector ms-2 mr-2">
                   <select 
                     name="currencyTo" 
-                    class="border-0" 
+                    class="border-0"
+                    style="max-width: 65px;"
                     :value="`${currencyTo.currencyCode}_${currencyTo.countryName.replace(' ', '_')}`" 
                     @change="toChange"
                   >
@@ -64,7 +66,7 @@
                       :value="`${country.currencyCode}_${country.countryName.replace(' ', '_')}`" 
                       :key="index"
                     >
-                      {{ country.currencyCode }}
+                      {{ country.currencyCode }} - {{ country.countryName }}
                     </option>
                   </select>
                 </div>
@@ -137,10 +139,8 @@
       currencyFrom: (state : any) => state.currencyFrom,
       currencyTo: (state : any) => state.currencyTo,
       convertion: function (state : any) {
-        return (( 
-          this.currencyFromQuantity * (
-            this.currencyFromQuantity / state.DOPRates[state.currencyFrom.currencyCode]
-          ) 
+        return ((
+          +this.currencyFromQuantity * (1 / state.DOPRates[state.currencyFrom.currencyCode]) 
         ) * state.DOPRates[state.currencyTo.currencyCode]).toFixed(4)
       }
     }),

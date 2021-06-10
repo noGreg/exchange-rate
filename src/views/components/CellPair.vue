@@ -11,10 +11,8 @@
   export default defineComponent({
     computed: mapState({
       convertion: function (state : any) {
-        return (( 
-          this.qty * (
-            this.qty / state.DOPRates[this.currencyFromCode]
-          ) 
+        return (
+          (this.qty * (1 / state.DOPRates[this.currencyFromCode]) 
         ) * state.DOPRates[this.currencyToCode]).toLocaleString()
       }
     }),

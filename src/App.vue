@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component v-bind:is="currentPage.component"></component>
+    <ConvertionStarter/>
   </div>
 </template>
 
@@ -17,9 +17,6 @@
 
   export default defineComponent({
     name: 'App',
-    data: () => ({
-      currentPage: pages[0]
-    }),
     components: {
       ConvertionStarter
     }
